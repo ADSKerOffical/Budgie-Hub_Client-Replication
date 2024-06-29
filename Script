@@ -148,7 +148,7 @@ Tab:AddButton({
         local workspace = game:GetService("Workspace")
 
 function deleteAllMessages()
-  for _, child in ipairs(workspace:GetDescendants()) do
+  for _, child in ipairs(game.ScreenGui:GetChildren()) do
     if child:IsA("TextLabel") or child:IsA("PlayerGui") or child:IsA("ImageLabel") or child:IsA("BillboardGui") or child:IsA("SurfaceGui") then
       child:Destroy()
     end
