@@ -1,0 +1,292 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
+
+local Window = OrionLib:MakeWindow({Name = "Budgie Hub | Client Replication", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+ Name = "Kill other",
+ Callback = function()
+        local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+  for _, player in ipairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+      player.Character.Humanoid.Health = 0
+    end
+  end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Bring all",
+ Callback = function()
+        local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+  for _, player in ipairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+      player.Character.HumanoidRootPart.CFrame = LocalPlayer.Character.HumanoidRootPart.CFrame
+    end
+  end
+   end    
+})
+
+Tab:AddToggle({
+	Name = "Mute all sounds",
+	Default = false,
+	Callback = function(Value)
+MuteS = Value
+ while MuteS do
+   wait()
+for i,v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Sound") then
+            v.Playing = fasle
+        end
+    end
+end
+	end    
+})
+
+Tab:AddButton({
+ Name = "Blocking kill scripts(Almost)",
+ Callback = function()
+        local player = game.Players.LocalPlayer
+player.Character.Humanoid.MaxHealth = math.huge
+player.Character.Humanoid.Health = math.huge
+
+player.Character.Humanoid.HealthChanged:Connect(function(newHealth)
+    if newHealth <= 0 then
+        player.Character.Humanoid.Health = math.huge
+    end
+end)
+
+local blacklistedFunctions = {
+    ["Humanoid"] = {
+        "TakeDamage",
+        "ChangeState",
+        "SetStateEnabled",
+        "Jump",
+        "RemoveAccessories",
+        "Health",
+        "ChangeAnimState",
+        "ChangeEquipState"
+    },
+    ["Workspace"] = {
+        "Explosion",
+        "FindPartOnRay",
+        "FindPartOnRayWithIgnoration",
+        "FindPartOnRayWithWhitelist",
+        "FindPartOnRayWithWhitelistIgnored"
+    }
+}
+
+for className, functionNames in pairs(blacklistedFunctions) do
+    local class = getsenv(game[className])
+    for _, functionName in pairs(functionNames) do
+        local originalFunction = class[functionName]
+        class[functionName] = function(...)
+            if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+                return 0
+            else
+                return originalFunction(...)
+            end
+        end
+    end
+end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove decals and workspace effects",
+ Callback = function()
+        local workspace = game:GetService("Workspace")
+
+function deleteAllDecals()
+  for _, child in ipairs(workspace:GetDescendants()) do
+    if child:IsA("Decal") or child:IsA("ParticleEmitter") or child:IsA("Fire") or child:IsA("Smoke") or child:IsA("Explosion") or child:IsA("Trail") or child:IsA("Sparkles") or child:IsA("Beam") then
+      child:Destroy()
+    end
+  end
+
+for _, child in ipairs(game.Lighting:GetDescendants()) do
+    if child:IsA("Sky") then
+      child:Destroy()
+    end
+  end
+  
+end
+
+deleteAllDecals()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove Messages",
+ Callback = function()
+        local workspace = game:GetService("Workspace")
+
+function deleteAllMessages()
+  for _, child in ipairs(workspace:GetDescendants()) do
+    if child:IsA("Message") or child:IsA("Hint") then
+      child:Destroy()
+    end
+  end
+end
+
+deleteAllMessages()
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Off Lighting Effects",
+ Default = false,
+ Callback = function(Value)
+  ggh = Value
+   while ggh do
+      task.wait()
+   for i, v in pairs(game.Lighting:GetDescendants()) do
+        if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") or v:IsA("DepthOfFieldEffect") or v:IsA("SunRays") or v:IsA("Outlines") or v:IsA("GlobalShadows") then
+            v.Enabled = false
+        end
+    end
+   end
+ end    
+})
+
+Tab:AddButton({
+ Name = "Force Field",
+ Callback = function()
+        Ff = Instance.new("ForceField")
+Ff.Parent = game.Players.LocalPlayer.Character
+   end    
+})
+
+Tab:AddTextbox({
+	Name = "Fake message all",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(value)
+function CreateChatBubble(instance, message)
+	game.Chat:Chat(instance, message, Enum.ChatColor.White)
+end
+
+CreateChatBubble(game.Players.LocalPlayer.Character.Head, value)
+	end	  
+})
+
+Tab:AddDropdown({
+	Name = "Custom Tool",
+	Default = "1",
+	Options = {"Shotgun", "Rifle"},
+	Callback = function(Value)
+		if Value == "Shotgun" then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Client-Replication_Shotgun/main/Gun"))()
+		end
+		if Value == "Rifle" then
+		local plr = game.Players.LocalPlayer
+local tool = Instance.new("Tool",plr.Backpack)
+tool.Name = "HackerGunHyperShots"
+tool.ToolTip = "Hack Gun"
+tool.Grip = CFrame.Angles(1.5, math.rad(0), 0)
+tool.TextureId = "http://www.roblox.com/asset?id=72012935"
+local handle = Instance.new("Part",tool)
+handle.Name = "Handle"
+local mesh = Instance.new("SpecialMesh",handle)
+mesh.MeshId = "http://www.roblox.com/asset?id=72012972"
+mesh.TextureId = "http://www.roblox.com/asset?id=72012935"
+mesh.Scale = Vector3.new(2,2,2)
+
+tool.Activated:Connect(function()
+    local mousePos = game.Players.LocalPlayer:GetMouse()
+    if mousePos then
+        mousePos.Target:Destroy()
+    end
+end)
+		end
+	end    
+})
+
+Tab:AddButton({
+ Name = "Budgie!!!!",
+ Callback = function()
+        Spooky = Instance.new("Sound", game.Workspace)
+      Spooky.Name = "Scarrrrryyyyyyy"
+      Spooky.SoundId = "rbxassetid://1494570444"
+      Spooky.Volume = 3
+      Spooky.PlaybackSpeed = 1
+      Spooky.Looped = false
+      Spooky:Play()
+
+      wait(4.1)
+      s = Instance.new("Sky")
+      s.Name = "SKY"
+      s.SkyboxBk = "http://www.roblox.com/asset/?id=16336200609"
+      s.SkyboxDn = "http://www.roblox.com/asset/?id=16336200609"
+      s.SkyboxFt = "http://www.roblox.com/asset/?id=16336200609"
+      s.SkyboxLf = "http://www.roblox.com/asset/?id=16336200609"
+      s.SkyboxRt = "http://www.roblox.com/asset/?id=16336200609"
+      s.SkyboxUp = "http://www.roblox.com/asset/?id=16336200609"
+      s.Parent = game.Lighting
+
+      decalID = 16336200609
+      function exPro(root)
+         for _, v in pairs(root:GetChildren()) do
+            if v:IsA("Decal") and v.Texture ~= "http://www.roblox.com/asset/?id=" .. decalID then
+               v.Parent = nil
+            elseif v:IsA("BasePart") then
+               v.Material = "Plastic"
+               v.Transparency = 0
+               local One = Instance.new("Decal", v)
+               local Two = Instance.new("Decal", v)
+               local Three = Instance.new("Decal", v)
+               local Four = Instance.new("Decal", v)
+               local Five = Instance.new("Decal", v)
+               local Six = Instance.new("Decal", v)
+               One.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               Two.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               Three.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               Four.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               Five.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               Six.Texture = "http://www.roblox.com/asset/?id=" .. decalID
+               One.Face = "Front"
+               Two.Face = "Back"
+               Three.Face = "Right"
+               Four.Face = "Left"
+               Five.Face = "Top"
+               Six.Face = "Bottom"
+            end
+            exPro(v)
+         end
+      end
+      function asdf(root)
+         for _, v in pairs(root:GetChildren()) do
+            asdf(v)
+         end
+      end
+      exPro(game.Workspace)
+      asdf(game.Workspace)
+   end    
+})
+
+Tab:AddButton({
+ Name = "Destroy everything",
+ Callback = function()
+        workspace = game:GetService("Workspace")
+  for _, child in ipairs(workspace:GetDescendants()) do
+    if child:IsA("Part") then
+      child:Destroy()
+    end
+  end
+  
+  local Players = game:GetService("Players")
+  for _, player in ipairs(Players:GetPlayers()) do
+  player.Character:Destroy()
+    player.CharacterAutoLoads = false
+  end
+   end    
+})
