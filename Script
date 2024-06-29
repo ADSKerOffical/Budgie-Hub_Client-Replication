@@ -108,7 +108,7 @@ Tab:AddButton({
 
 function deleteAllDecals()
   for _, child in ipairs(workspace:GetDescendants()) do
-    if child:IsA("Decal") or child:IsA("ParticleEmitter") or child:IsA("Fire") or child:IsA("Smoke") or child:IsA("Explosion") or child:IsA("Trail") or child:IsA("Sparkles") or child:IsA("Beam") then
+    if child:IsA("Decal") or child:IsA("ParticleEmitter") or child:IsA("Fire") or child:IsA("Smoke") or child:IsA("Explosion") or child:IsA("Trail") or child:IsA("Sparkles") or child:IsA("Beam") or child:IsA("PointLight") then
       child:Destroy()
     end
   end
@@ -133,6 +133,23 @@ Tab:AddButton({
 function deleteAllMessages()
   for _, child in ipairs(workspace:GetDescendants()) do
     if child:IsA("Message") or child:IsA("Hint") then
+      child:Destroy()
+    end
+  end
+end
+
+deleteAllMessages()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove Text Labels",
+ Callback = function()
+        local workspace = game:GetService("Workspace")
+
+function deleteAllMessages()
+  for _, child in ipairs(workspace:GetDescendants()) do
+    if child:IsA("TextLabel") or child:IsA("PlayerGui") then
       child:Destroy()
     end
   end
