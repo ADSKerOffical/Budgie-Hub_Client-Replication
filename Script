@@ -36,6 +36,30 @@ local LocalPlayer = Players.LocalPlayer
    end    
 })
 
+Tab:AddButton({
+ Name = "Delete all characters",
+ Callback = function()
+        local Players = game:GetService("Players")
+  for _, player in ipairs(Players:GetPlayers()) do
+  if player ~= Players.LocalPlayer then
+      player.Character:Destroy()
+  end
+end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Freeze all",
+ Callback = function()
+local Players = game:GetService("Players")
+  for _, player in ipairs(Players:GetPlayers()) do
+  if player ~= Players.LocalPlayer then
+      player.Character.HumanoidRootPart.Anchored = true
+  end
+end
+   end    
+})
+
 Tab:AddToggle({
 	Name = "Mute all sounds",
 	Default = false,
@@ -101,9 +125,11 @@ end
    end    
 })
 
-Tab:AddButton({
+Tab:AddToggle({
  Name = "Remove decals and workspace effects",
- Callback = function()
+ Default = false,
+ Callback = function(Value)
+ guy = Value
         local workspace = game:GetService("Workspace")
 
 function deleteAllDecals()
@@ -121,13 +147,18 @@ for _, child in ipairs(game.Lighting:GetDescendants()) do
   
 end
 
+while guy do
+   task.wait()
 deleteAllDecals()
+end
    end    
 })
 
-Tab:AddButton({
+Tab:AddToggle({
  Name = "Remove Messages",
- Callback = function()
+ Default = false,
+ Callback = function(Value)
+ hyur = Value
         local workspace = game:GetService("Workspace")
 
 function deleteAllMessages()
@@ -138,24 +169,10 @@ function deleteAllMessages()
   end
 end
 
+while hyur do
+   task.wait()
 deleteAllMessages()
-   end    
-})
-
-Tab:AddButton({
- Name = "Remove Text Labels and misc",
- Callback = function()
-        local workspace = game:GetService("Workspace")
-
-function deleteAllMessages()
-  for _, child in ipairs(game.ScreenGui:GetChildren()) do
-    if child:IsA("TextLabel") or child:IsA("PlayerGui") or child:IsA("ImageLabel") or child:IsA("BillboardGui") or child:IsA("SurfaceGui") then
-      child:Destroy()
-    end
-  end
 end
-
-deleteAllMessages()
    end    
 })
 
@@ -169,6 +186,10 @@ Tab:AddToggle({
    for i, v in pairs(game.Lighting:GetDescendants()) do
         if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") or v:IsA("DepthOfFieldEffect") or v:IsA("SunRays") or v:IsA("Outlines") or v:IsA("GlobalShadows") then
             v.Enabled = false
+        game.Lighting.Ambient = Color3.fromRGB(80, 80, 80)
+        game.Lighting.FogStart = math.huge
+game.Lighting.FogEnd = math.huge
+game.Lighting.FogColor = Color3.new(0,0,0)
         end
     end
    end
@@ -184,7 +205,7 @@ Ff.Parent = game.Players.LocalPlayer.Character
 })
 
 Tab:AddTextbox({
-	Name = "Fake message all",
+	Name = "Fake message",
 	Default = "",
 	TextDisappear = true,
 	Callback = function(value)
@@ -287,23 +308,5 @@ Tab:AddButton({
       end
       exPro(game.Workspace)
       asdf(game.Workspace)
-   end    
-})
-
-Tab:AddButton({
- Name = "Destroy everything",
- Callback = function()
-        workspace = game:GetService("Workspace")
-  for _, child in ipairs(workspace:GetDescendants()) do
-    if child:IsA("Part") then
-      child:Destroy()
-    end
-  end
-  
-  local Players = game:GetService("Players")
-  for _, player in ipairs(Players:GetPlayers()) do
-  player.Character:Destroy()
-    player.CharacterAutoLoads = false
-  end
    end    
 })
