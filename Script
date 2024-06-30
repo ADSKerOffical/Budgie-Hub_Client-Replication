@@ -177,6 +177,23 @@ end
 })
 
 Tab:AddToggle({
+	Name = "Remove BillboardsGui",
+	Default = false,
+	Callback = function(Value)
+  ttt = Value
+	    while ttt do
+	        task.wait()
+	    allObjects = game:GetDescendants()
+    for _, object in ipairs(allObjects) do
+        if object:IsA("BillboardGui") then
+            object:Destroy()
+        end
+    end
+	     end
+	end    
+})
+
+Tab:AddToggle({
  Name = "Off Lighting Effects",
  Default = false,
  Callback = function(Value)
