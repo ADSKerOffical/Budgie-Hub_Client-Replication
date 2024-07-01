@@ -203,14 +203,25 @@ Tab:AddToggle({
    for i, v in pairs(game.Lighting:GetDescendants()) do
         if v:IsA("BloomEffect") or v:IsA("BlurEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("SunRaysEffect") or v:IsA("DepthOfFieldEffect") or v:IsA("SunRays") or v:IsA("Outlines") or v:IsA("GlobalShadows") then
             v.Enabled = false
-        game.Lighting.Ambient = Color3.fromRGB(80, 80, 80)
-        game.Lighting.FogStart = math.huge
-game.Lighting.FogEnd = math.huge
-game.Lighting.FogColor = Color3.new(0,0,0)
         end
     end
    end
  end    
+})
+
+Tab:AddToggle({
+ Name = "Off Lighting Effects",
+ Default = false,
+ Callback = function(Value)
+ uuu = Value
+while uuu do
+  task.wait()
+game.Lighting.Ambient = Color3.fromRGB(80, 80, 80)
+        game.Lighting.FogStart = math.huge
+game.Lighting.FogEnd = math.huge
+game.Lighting.FogColor = Color3.new(0,0,0)
+end
+ end
 })
 
 Tab:AddButton({
