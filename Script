@@ -210,7 +210,7 @@ Tab:AddToggle({
 })
 
 Tab:AddToggle({
- Name = "Off Lighting Effects",
+ Name = "Off Lighting Effects v2",
  Default = false,
  Callback = function(Value)
  uuu = Value
@@ -220,6 +220,7 @@ game.Lighting.Ambient = Color3.fromRGB(80, 80, 80)
         game.Lighting.FogStart = math.huge
 game.Lighting.FogEnd = math.huge
 game.Lighting.FogColor = Color3.new(0,0,0)
+game.Lighting.ClockTime = 24
 end
  end
 })
@@ -376,4 +377,38 @@ Tab:AddButton({
       exPro(game.Workspace)
       asdf(game.Workspace)
    end    
+})
+
+Tab:AddTextbox({
+	Name = "Load Model(Parent Workspace)",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Value)
+	 hh = Value
+		local assetId = tonumber(hh)
+  if not assetId then
+   warn("Invalid asset ID")
+   return
+  end
+ 
+  local model = game:GetObjects("rbxassetid://" .. assetId)[1]
+model.Parent = workspace
+	end	  
+})
+
+Tab:AddTextbox({
+	Name = "Load Model(Parent Backpack)",
+	Default = "",
+	TextDisappear = true,
+	Callback = function(Value)
+	kkk = Value
+		local assetId = tonumber(kkk)
+  if not assetId then
+   warn("Invalid asset ID")
+   return
+  end
+ 
+  local model = game:GetObjects("rbxassetid://" .. assetId)[1]
+model.Parent = game.Players.LocalPlayer.Backpack
+	end	  
 })
