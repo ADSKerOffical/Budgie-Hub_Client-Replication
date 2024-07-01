@@ -130,11 +130,11 @@ Tab:AddToggle({
  Default = false,
  Callback = function(Value)
  guy = Value
-        local workspace = game:GetService("Workspace")
+        workspace = game:GetService("Workspace")
 
 function deleteAllDecals()
   for _, child in ipairs(workspace:GetDescendants()) do
-    if child:IsA("Decal") or child:IsA("ParticleEmitter") or child:IsA("Fire") or child:IsA("Smoke") or child:IsA("Explosion") or child:IsA("Trail") or child:IsA("Sparkles") or child:IsA("Beam") or child:IsA("PointLight") or child:IsA("SpotLight") or child:IsA("SurfaceLight") then
+    if child:IsA("Decal") or child:IsA("ParticleEmitter") or child:IsA("Fire") or child:IsA("Smoke") or child:IsA("Explosion") or child:IsA("Trail") or child:IsA("Sparkles") or child:IsA("Beam") or child:IsA("PointLight") or child:IsA("SpotLight") or child:IsA("SurfaceLight") or child:IsA("SelectionBox") then
       child:Destroy()
     end
   end
@@ -159,7 +159,7 @@ Tab:AddToggle({
  Default = false,
  Callback = function(Value)
  hyur = Value
-        local workspace = game:GetService("Workspace")
+        workspace = game:GetService("Workspace")
 
 function deleteAllMessages()
   for _, child in ipairs(workspace:GetDescendants()) do
@@ -262,6 +262,45 @@ tool.Activated:Connect(function()
         mousePos.Target:Destroy()
     end
 end)
+		end
+     if Value == "Hyperion" then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/SuperGun/main/Hyper"))()
+     end
+	end    
+})
+
+Tab:AddTextbox({
+	Name = "Set Gravity",
+	Default = "192",
+	TextDisappear = true,
+	Callback = function(Value)
+		game.Workspace.Gravity = Value
+	end	  
+})
+
+Tab:AddDropdown({
+	Name = "Sounds",
+	Default = "1",
+	Options = {"Obeme", "Laugh"},
+	Callback = function(Value)
+		it Value == "Obeme" then
+		A = math.random() + math.random(0.5, 3)
+Spooky = Instance.new("Sound", game.Workspace)
+Spooky.Name = "Spooky"
+Spooky.SoundId = "rbxassetid://5065030837"
+Spooky.Volume = 10
+Spooky.PlaybackSpeed = A
+Spooky.Looped = false
+Spooky:Play()
+		elseif Value == "Laugh" then
+		A = math.random() + math.random(0.5, 3)
+Spooky = Instance.new("Sound", game.Workspace)
+Spooky.Name = "How did you know about this?"
+Spooky.SoundId = "rbxassetid://6882766712"
+Spooky.Volume = 10
+Spooky.PlaybackSpeed = A
+Spooky.Looped = false
+Spooky:Play()
 		end
 	end    
 })
