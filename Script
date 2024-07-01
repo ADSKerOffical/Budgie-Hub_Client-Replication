@@ -283,7 +283,7 @@ Tab:AddDropdown({
 	Default = "1",
 	Options = {"Obeme", "Laugh"},
 	Callback = function(Value)
-		it Value == "Obeme" then
+		if Value == "Obeme" then
 		A = math.random() + math.random(0.5, 3)
 Spooky = Instance.new("Sound", game.Workspace)
 Spooky.Name = "Spooky"
