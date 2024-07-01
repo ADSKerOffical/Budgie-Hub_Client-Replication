@@ -237,7 +237,7 @@ CreateChatBubble(game.Players.LocalPlayer.Character.Head, value)
 Tab:AddDropdown({
 	Name = "Custom Tool",
 	Default = "1",
-	Options = {"Shotgun", "Rifle"},
+	Options = {"Shotgun", "Rifle", "Hyperion"},
 	Callback = function(Value)
 		if Value == "Shotgun" then
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Client-Replication_Shotgun/main/Gun"))()
