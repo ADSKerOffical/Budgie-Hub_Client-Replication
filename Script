@@ -48,16 +48,27 @@ end
    end    
 })
 
-Tab:AddButton({
- Name = "Freeze all",
- Callback = function()
-local Players = game:GetService("Players")
+Tab:AddDropdown({
+	Name = "Freeze all",
+	Default = "1",
+	Options = {"Freeze", "Unfreeze"},
+	Callback = function(Value)
+		if Value == "Freeze" then
+		local Players = game:GetService("Players")
   for _, player in ipairs(Players:GetPlayers()) do
   if player ~= Players.LocalPlayer then
       player.Character.HumanoidRootPart.Anchored = true
   end
 end
-   end    
+		elseif Value == "Unfreeze" then
+		local Players = game:GetService("Players")
+  for _, player in ipairs(Players:GetPlayers()) do
+  if player ~= Players.LocalPlayer then
+      player.Character.HumanoidRootPart.Anchored = false
+  end
+end
+		end
+	end    
 })
 
 Tab:AddToggle({
@@ -190,6 +201,25 @@ Tab:AddToggle({
         end
     end
 	     end
+	end    
+})
+
+Tab:AddToggle({
+	Name = "Remove all unanchored",
+	Default = false,
+	Callback = function(Value)
+ert = Value
+        function deleteUnattachedObjects()
+    for _, object in pairs(workspace:GetDescendants()) do
+        if object:IsA("BasePart") and object.Anchored == false and object.Parent == workspace then
+            object:Destroy()
+        end
+    end
+end
+while ert do
+    task.wait(0.01)
+deleteUnattachedObjects()
+        end
 	end    
 })
 
