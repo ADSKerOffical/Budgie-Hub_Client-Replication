@@ -410,7 +410,7 @@ Tab:AddButton({
 })
 
 Tab:AddTextbox({
-	Name = "Load Model(Parent Workspace)",
+	Name = "Load Model(Parent Workspace(MoveTo Method))",
 	Default = "",
 	TextDisappear = true,
 	Callback = function(Value)
@@ -420,9 +420,12 @@ Tab:AddTextbox({
    warn("Invalid asset ID")
    return
   end
+local user = game.Players.LocalPlayer
  
   local model = game:GetObjects("rbxassetid://" .. assetId)[1]
 model.Parent = workspace
+model:MakeJoints() 
+model:MoveTo(Game.Workspace[user.Name].Torso.Position + Vector3.new(0, 0, 0))
 	end	  
 })
 
