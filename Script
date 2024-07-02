@@ -264,7 +264,7 @@ Ff.Parent = game.Players.LocalPlayer.Character
 })
 
 Tab:AddTextbox({
-	Name = "Fake message",
+	Name = "Bubble chat",
 	Default = "",
 	TextDisappear = true,
 	Callback = function(value)
@@ -274,6 +274,54 @@ end
 
 CreateChatBubble(game.Players.LocalPlayer.Character.Head, value)
 	end	  
+})
+
+Tab:AddTextbox({
+ Name = "Bubble chat all players",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+    uihg = Value
+      function CreateChatBubble(instance, message)
+    game.Chat:Chat(instance, message, Enum.ChatColor.White)
+end
+
+function CreateChatBubblesForAllPlayers(message)
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("Head") then
+            CreateChatBubble(player.Character.Head, message)
+        end
+    end
+end
+
+CreateChatBubblesForAllPlayers(uihg)
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Bubble chat all parts",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+  klin = Value
+     function CreateChatBubble(instance, message)
+    game.Chat:Chat(instance, message, Enum.ChatColor.White)
+end
+
+function CreateChatBubblesForAllParts(message)
+    for _, part in pairs(game.Workspace:GetDescendants()) do
+        if part:IsA("Part") or part:IsA("BasePart") then
+            if part.Parent:FindFirstChild("Head") then
+                CreateChatBubble(part.Parent.Head, message)
+            else
+                CreateChatBubble(part, message)
+            end
+        end
+    end
+end
+
+CreateChatBubblesForAllParts(klin)
+ end   
 })
 
 Tab:AddDropdown({
