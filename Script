@@ -77,7 +77,7 @@ Tab:AddToggle({
 	Callback = function(Value)
 MuteS = Value
  while MuteS do
-   wait()
+   task.wait()
 for i,v in pairs(workspace:GetDescendants()) do
         if v:IsA("Sound") then
             v.Playing = fasle
@@ -87,53 +87,32 @@ end
 	end    
 })
 
-Tab:AddButton({
- Name = "Blocking kill scripts(Almost)",
- Callback = function()
-        local player = game.Players.LocalPlayer
-player.Character.Humanoid.MaxHealth = math.huge
-player.Character.Humanoid.Health = math.huge
+Tab:AddToggle({
+	Name = "Auto Load Character",
+	Default = false,
+	Callback = function(Value)
+gytptr = Value
+ local Player = game:GetService("Players").LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local lastPosition = Player.Character.HumanoidRootPart.CFrame
 
-player.Character.Humanoid.HealthChanged:Connect(function(newHealth)
-    if newHealth <= 0 then
-        player.Character.Humanoid.Health = math.huge
+while gytptr do
+    wait(0.1)
+    if Player.Character:FindFirstChildOfClass("Humanoid") then
+        lastPosition = Player.Character.HumanoidRootPart.CFrame
     end
-end)
-
-local blacklistedFunctions = {
-    ["Humanoid"] = {
-        "TakeDamage",
-        "ChangeState",
-        "SetStateEnabled",
-        "Jump",
-        "RemoveAccessories",
-        "Health",
-        "ChangeAnimState",
-        "ChangeEquipState"
-    },
-    ["Workspace"] = {
-        "Explosion",
-        "FindPartOnRay",
-        "FindPartOnRayWithIgnoration",
-        "FindPartOnRayWithWhitelist",
-        "FindPartOnRayWithWhitelistIgnored"
-    }
-}
-
-for className, functionNames in pairs(blacklistedFunctions) do
-    local class = getsenv(game[className])
-    for _, functionName in pairs(functionNames) do
-        local originalFunction = class[functionName]
-        class[functionName] = function(...)
-            if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
-                return 0
-            else
-                return originalFunction(...)
-            end
+    
+    if Player == game:GetService("Players").LocalPlayer then
+        if not Player.Character or not Player.Character:FindFirstChildOfClass("Humanoid") then
+            ReplicatedStorage.InstantRespawn:FireServer()
+            repeat 
+                wait() 
+            until Player.Character:FindFirstChildOfClass("Humanoid")
+            Player.Character.HumanoidRootPart.CFrame = lastPosition
         end
     end
 end
-   end    
+	end    
 })
 
 Tab:AddToggle({
