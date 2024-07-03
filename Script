@@ -741,6 +741,70 @@ end)
    end    
 })
 
+Tab:AddButton({
+ Name = "Billboard spam(TextLabel)",
+ Callback = function()
+        local workspace = game:GetService("Workspace")
+
+for _, part in pairs(workspace:GetDescendants()) do
+    if part:IsA("Part") then
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Name = "ChatBillboardGui"
+        billboardGui.Adornee = part
+        billboardGui.Size = UDim2.new(0, 200, 0, 100)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+        billboardGui.AlwaysOnTop = true
+        billboardGui.LightInfluence = 1
+        billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        msg = Instance.new("TextLabel")
+        msg.Name = "ChatMessageLabel"
+        msg.Text = "Budgerigars are the rulers of the world \n Who does not believe in the electric chair"
+        msg.Size = UDim2.new(1, 0, 1, 0)
+        msg.BackgroundTransparency = 1
+        msg.TextColor3 = Color3.new(0, 1, 0)
+        msg.TextScaled = true
+        msg.TextStrokeColor3 = Color3.new(0, 0, 0)
+        msg.TextStrokeTransparency = 0
+        msg.Visible = true
+        msg.Parent = billboardGui
+
+        billboardGui.Parent = part
+    end
+end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Billboard spam(ImageLabel)",
+ Callback = function()
+        for _, part in ipairs(workspace:GetDescendants()) do
+    if part:IsA("Part") then
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Name = "ChatBillboardGui"
+        billboardGui.Adornee = part
+        billboardGui.Size = UDim2.new(0, 200, 0, 200)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+        billboardGui.AlwaysOnTop = true
+        billboardGui.LightInfluence = 1
+        billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        msg = Instance.new("ImageLabel")
+        msg.Name = "ChatMessageLabel"
+        msg.Image = "http://www.roblox.com/asset/?id=16336200609"
+        msg.Size = UDim2.new(1, 0, 1, 0)
+        msg.BackgroundTransparency = 1
+        msg.ImageColor3 = Color3.new(1, 1, 1)
+        msg.ScaleType = Enum.ScaleType.Fit
+        msg.Visible = true
+        msg.Parent = billboardGui
+
+        billboardGui.Parent = part
+    end
+end
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Input",
 	Icon = "rbxassetid://4483345998",
