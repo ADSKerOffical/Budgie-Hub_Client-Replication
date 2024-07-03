@@ -605,6 +605,142 @@ createParticleEmitters()
    end    
 })
 
+Tab:AddButton({
+ Name = "Custom chat",
+ Callback = function()
+        player = game.Players.LocalPlayer
+billboardGui = nil
+
+waitTime = 0.05
+fadeOutTime = 1
+
+function displayBillboardGui(message)
+    if billboardGui then
+        billboardGui:Destroy()
+    end
+
+    billboardGui = Instance.new("BillboardGui")
+    billboardGui.Name = "ChatBillboardGui"
+    billboardGui.Adornee = player.Character.Head
+    billboardGui.Size = UDim2.new(0, 200, 0, 50)
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+    billboardGui.AlwaysOnTop = true
+    billboardGui.LightInfluence = 1
+    billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    msg = Instance.new("TextLabel")
+    msg.Name = "ChatMessageLabel"
+    msg.Text = ""
+    msg.Size = UDim2.new(1, 0, 1, 0)
+    msg.BackgroundTransparency = 1
+    msg.TextColor3 = Color3.new(0, 1, 0)
+    msg.TextScaled = true
+    msg.TextStrokeColor3 = Color3.new(0, 0, 0)
+    msg.TextStrokeTransparency = 0
+    msg.Visible = true
+    msg.Parent = billboardGui
+
+    billboardGui.Parent = player.Character.Head
+
+    letters = {}
+    for i = 1, #message do
+        table.insert(letters, message:sub(i, i))
+    end
+
+    function showLetters()
+        for i, letter in ipairs(letters) do
+            msg.Text = msg.Text .. letter
+            wait(waitTime)
+        end
+    end
+    showLetters()
+
+task.wait(5)
+    tweenInfo = TweenInfo.new(fadeOutTime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    tween = game:GetService("TweenService"):Create(msg, tweenInfo, { TextTransparency = 1 })
+    tween:Play()
+
+    wait(fadeOutTime)
+    billboardGui:Destroy()
+end
+
+player.Chatted:Connect(function(message)
+    displayBillboardGui(message)
+end)
+   end    
+})
+
+Tab:AddButton({
+ Name = "Custom chat all (PlayerAdded method)",
+ Callback = function()
+        local Players = game:GetService("Players")
+function displayBillboardGuiForPlayer(player, message)
+    local billboardGui = nil
+
+    local waitTime = 0.05
+    local fadeOutTime = 1
+
+    if billboardGui then
+        billboardGui:Destroy()
+    end
+
+    billboardGui = Instance.new("BillboardGui")
+    billboardGui.Name = "ChatBillboardGui"
+    billboardGui.Adornee = player.Character.Head
+    billboardGui.Size = UDim2.new(0, 200, 0, 50)
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+    billboardGui.AlwaysOnTop = true
+    billboardGui.LightInfluence = 1
+    billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+    local msg = Instance.new("TextLabel")
+    msg.Name = "ChatMessageLabel"
+    msg.Text = ""
+    msg.Size = UDim2.new(1, 0, 1, 0)
+    msg.BackgroundTransparency = 1
+    msg.TextColor3 = Color3.new(0, 1, 0)
+    msg.TextScaled = true
+    msg.TextStrokeColor3 = Color3.new(0, 0, 0)
+    msg.TextStrokeTransparency = 0
+    msg.Visible = true
+    msg.Parent = billboardGui
+
+    billboardGui.Parent = player.Character.Head
+
+    local letters = {}
+    for i = 1, #message do
+        table.insert(letters, message:sub(i, i))
+    end
+
+    function showLetters()
+        for i, letter in ipairs(letters) do
+            msg.Text = msg.Text .. letter
+            wait(waitTime)
+        end
+    end
+    showLetters()
+
+    task.wait(5)
+    local tweenInfo = TweenInfo.new(fadeOutTime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local tween = game:GetService("TweenService"):Create(msg, tweenInfo, { TextTransparency = 1 })
+    tween:Play()
+
+    wait(fadeOutTime)
+    billboardGui:Destroy()
+end
+
+Players.PlayerChatted:Connect(function(player, message, type)
+        displayBillboardGuiForPlayer(player, message)
+end)
+
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(message)
+        displayBillboardGuiForPlayer(player, message)
+    end)
+end)
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Input",
 	Icon = "rbxassetid://4483345998",
