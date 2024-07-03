@@ -1059,7 +1059,7 @@ msg:Destroy()
 })
 
 Tab:AddTextbox({
-	Name = "Message delayed",
+	Name = "Animated Message",
 	Default = "text",
 	TextDisappear = true,
 	Callback = function(Value)
@@ -1096,4 +1096,66 @@ H.Text = Value
 wait(5)
 H:Destroy()
 	end	  
+})
+
+Tab:AddTextbox({
+ Name = "Animated Hint",
+ Default = "text",
+ TextDisappear = true,
+ Callback = function(Value)
+    msg = Instance.new("Hint", workspace)
+msgText = Value
+waitTime = 0.07
+
+letters = {}
+for i = 1, #msgText do
+    table.insert(letters, msgText:sub(i, i))
+end
+
+function showLetters()
+    for i, letter in ipairs(letters) do
+        msg.Text = msg.Text .. letter
+        wait(waitTime)
+    end
+end
+
+showLetters()
+wait(4)
+msg:Destroy()
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Billboard spam(TextLabel)",
+ Default = "text",
+ TextDisappear = true,
+ Callback = function(Value)
+     local workspace = game:GetService("Workspace")
+for _, part in pairs(workspace:GetDescendants()) do
+    if part:IsA("Part") then
+        local billboardGui = Instance.new("BillboardGui")
+        billboardGui.Name = "ChatBillboardGui"
+        billboardGui.Adornee = part
+        billboardGui.Size = UDim2.new(0, 200, 0, 50)
+        billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+        billboardGui.AlwaysOnTop = true
+        billboardGui.LightInfluence = 1
+        billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        local msg = Instance.new("TextLabel")
+        msg.Name = "ChatMessageLabel"
+        msg.Text = Value
+        msg.Size = UDim2.new(1, 0, 1, 0)
+        msg.BackgroundTransparency = 1
+        msg.TextColor3 = Color3.new(1, 1, 1)
+        msg.TextScaled = true
+        msg.TextStrokeColor3 = Color3.new(0, 0, 0)
+        msg.TextStrokeTransparency = 0
+        msg.Visible = true
+        msg.Parent = billboardGui
+
+        billboardGui.Parent = part
+    end
+end
+ end   
 })
