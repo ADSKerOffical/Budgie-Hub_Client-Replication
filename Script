@@ -78,7 +78,7 @@ Tab:AddToggle({
 MuteS = Value
  while MuteS do
    task.wait()
-for i,v in pairs(workspace:GetDescendants()) do
+for i,v in pairs(game:GetDescendants()) do
         if v:IsA("Sound") then
             v.Playing = fasle
         end
