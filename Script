@@ -784,6 +784,96 @@ end
    end    
 })
 
+Tab:AddButton({
+ Name = "Head of Madness",
+ Callback = function()
+        local player = game.Players.LocalPlayer
+
+local function increaseHeadSize(head)
+    head.Size = head.Size + Vector3.new(500, 10, 10)
+    head.CanCollide = false
+end
+
+local function onHeadAdded(head)
+    increaseHeadSize(head)
+end
+
+player.Character.DescendantAdded:Connect(function(descendant)
+    if descendant:IsA("BasePart") and descendant.Name == "Head" then
+        onHeadAdded(descendant)
+    end
+end)
+
+local head = player.Character:FindFirstChild("Head")
+if head then
+    increaseHeadSize(head)
+end
+   end    
+})
+
+Tab:AddButton({
+	Name = "Screw server",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+local sizeChanged = false
+
+local function increaseLimbSize(limb)
+    limb.Size = limb.Size + Vector3.new(10000, 2, 10000)
+    limb.CanCollide = false
+end
+
+local function onDescendantAdded(descendant)
+    if not sizeChanged then
+        if descendant:IsA("BasePart") then
+            if descendant.Name:find("Right Arm") or descendant.Name:find("Left Arm") or
+               descendant.Name:find("Right Leg") or descendant.Name:find("Left Leg") then
+                increaseLimbSize(descendant)
+            end
+        end
+    end
+end
+
+player.CharacterAdded:Connect(function(character)
+    character.DescendantAdded:Connect(onDescendantAdded)
+   
+    if not sizeChanged then
+        for _, descendant in ipairs(character:GetDescendants()) do
+            if descendant:IsA("BasePart") then
+                if descendant.Name:find("Right Arm") or descendant.Name:find("Left Arm") or
+                   descendant.Name:find("Right Leg") or descendant.Name:find("Left Leg") then
+                    increaseLimbSize(descendant)
+                end
+            end
+        end
+        sizeChanged = true
+    end
+end)
+
+if player.Character and not sizeChanged then
+    for _, descendant in ipairs(player.Character:GetDescendants()) do
+        if descendant:IsA("BasePart") then
+            if descendant.Name:find("Right Arm") or descendant.Name:find("Left Arm") or
+               descendant.Name:find("Right Leg") or descendant.Name:find("Left Leg") then
+                increaseLimbSize(descendant)
+            end
+        end
+    end
+    sizeChanged = true
+end
+	end    
+})
+
+Tab:AddButton({
+ Name = "Remove everyone's skin",
+ Callback = function()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+      if player.Character and player.Character:FindFirstChild("Humanoid") then 
+player:ClearCharacterAppearance()
+       end
+     end
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Input",
 	Icon = "rbxassetid://4483345998",
