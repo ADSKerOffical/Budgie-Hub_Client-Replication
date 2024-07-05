@@ -175,7 +175,7 @@ Tab:AddToggle({
 	        task.wait()
 	    allObjects = game:GetDescendants()
     for _, object in ipairs(allObjects) do
-        if object:IsA("BillboardGui") then
+        if object:IsA("BillboardGui") or object:IsA("SurfaceGui") then
             object:Destroy()
         end
     end
@@ -871,6 +871,77 @@ Tab:AddButton({
 player:ClearCharacterAppearance()
        end
      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "SurfaceGui spam(TextLabel)",
+ Callback = function()
+        local workspace = game:GetService("Workspace")
+
+for _, part in pairs(workspace:GetDescendants()) do
+    if part:IsA("Part") or part:IsA("BasePart") or part:IsA("Terrain") then
+        local surfaceGui = Instance.new("SurfaceGui")
+        surfaceGui.Name = "ChatSurfaceGui"
+        surfaceGui.Adornee = part
+        surfaceGui.CanvasSize = Vector2.new(200, 100)
+        surfaceGui.LightInfluence = 1
+        surfaceGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+        msg = Instance.new("TextLabel")
+        msg.Name = "ChatMessageLabel"
+        msg.Text = "Budgerigars are the rulers of the world \n Who does not believe in the electric chair"
+        msg.Size = UDim2.new(1, 0, 1, 0)
+        msg.BackgroundTransparency = 1
+        msg.TextColor3 = Color3.new(0, 1, 0)
+        msg.TextScaled = true
+        msg.TextStrokeColor3 = Color3.new(0, 0, 0)
+        msg.TextStrokeTransparency = 0
+        msg.Visible = true
+        msg.Parent = surfaceGui
+
+        surfaceGui.Parent = part
+    end
+end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Airplanes!!!!",
+ Callback = function()
+        character = game.Players.LocalPlayer.Character
+customMeshConfig = {
+    ["Head"] = {
+        MeshId = "rbxassetid://5011580780",
+        TextureId = "rbxassetid://16336200609"
+    },
+    ["Left Arm"] = {
+        MeshId = "rbxassetid://5011580780",
+        TextureId = "rbxassetid://16336200609"
+    },
+    ["Right Arm"] = {
+        MeshId = "rbxassetid://5011580780",
+        TextureId = "rbxassetid://16336200609"
+    },
+    ["Left Leg"] = {
+        MeshId = "rbxassetid://5011580780",
+        TextureId = "rbxassetid://16336200609"
+    },
+    ["Right Leg"] = {
+        MeshId = "rbxassetid://5011580780",
+        TextureId = "rbxassetid://16336200609"
+    }
+}
+
+for bodyPart, config in pairs(customMeshConfig) do
+    part = character:FindFirstChild(bodyPart)
+    if part then
+        specialMesh = Instance.new("SpecialMesh")
+        specialMesh.MeshId = config.MeshId
+        specialMesh.TextureId = config.TextureId
+        specialMesh.Parent = part
+    end
+end
    end    
 })
 
